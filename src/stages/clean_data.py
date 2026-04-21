@@ -1,4 +1,3 @@
-# src/stages/clean_data.py
 import pandas as pd
 import yaml
 from scipy.stats.mstats import winsorize
@@ -10,20 +9,20 @@ def main():
     df = pd.read_csv(config["data"]["raw_data"])
     data = df.copy()
     
-    # 1. Удаление ненужных столбцов
+    # удаление ненужных столбцов
     data.drop(columns=config["features"]["drop_cols"], inplace=True, errors="ignore")
     
-    # 2. Обработка пропусков
+    # обработка пропусков
     data["Sex"] = data["Sex"].map({"male": 0, "female": 1})
     data["Embarked"] = data["Embarked"].fillna(data["Embarked"].mode()[0])
     data["Age"] = data.groupby("Pclass")["Age"].transform(lambda x: x.fillna(x.median()))
     
-    # 3. Обработка выбросов (winsorize)
+    # обработка выбросов 
     data["Fare"] = winsorize(data["Fare"].to_numpy(), limits=(0, 0.01))
     
-    # Сохраняем очищенный датасет
+    # сохранение 
     data.to_csv(config["data"]["clean_data"], index=False)
-    print(f"Очищенные данные сохранены в {config['data']['clean_data']}")
+    print(f'данные сохранены в {config["data"]["clean_data"]}')
 
 if __name__ == "__main__":
     main()

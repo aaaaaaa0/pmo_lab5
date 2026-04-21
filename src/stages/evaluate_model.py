@@ -1,4 +1,3 @@
-# src/stages/evaluate_model.py
 import pandas as pd
 import yaml
 import json
@@ -24,12 +23,11 @@ def main():
         "log_loss": log_loss(y_test, y_proba)
     }
     
-    # Сохраняем в JSON (путь из конфига)
     metrics_file = config["evaluate"]["metrics_file"]
     with open(metrics_file, "w") as f:
         json.dump(metrics, f, indent=4)
     
-    print("Метрики модели:")
+    # метрики
     for k, v in metrics.items():
         print(f"  {k}: {v:.4f}")
 

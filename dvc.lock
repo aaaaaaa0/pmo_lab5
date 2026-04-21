@@ -9,8 +9,8 @@ stages:
       size: 61194
     - path: src/config.yaml
       hash: md5
-      md5: fd835255ed8d22fe98aaf4d9a4a65765
-      size: 619
+      md5: 1953f2b73e1a932d4a2a8fe6c40afd15
+      size: 600
     - path: src/stages/clean_data.py
       hash: md5
       md5: b89591c66ef7ed2808a558c300070322
@@ -29,12 +29,12 @@ stages:
       size: 48298
     - path: src/config.yaml
       hash: md5
-      md5: fd835255ed8d22fe98aaf4d9a4a65765
-      size: 619
+      md5: 1953f2b73e1a932d4a2a8fe6c40afd15
+      size: 600
     - path: src/stages/feature_engineering.py
       hash: md5
-      md5: dd05eb99b1e36f72a6dd2c62a0815851
-      size: 3315
+      md5: 5842a28d1a4921cb80233bab38dc156e
+      size: 3278
     outs:
     - path: data/X_test_scaled.csv
       hash: md5
@@ -69,12 +69,12 @@ stages:
       size: 2146
     - path: src/config.yaml
       hash: md5
-      md5: fd835255ed8d22fe98aaf4d9a4a65765
-      size: 619
+      md5: 1953f2b73e1a932d4a2a8fe6c40afd15
+      size: 600
     - path: src/stages/train_model.py
       hash: md5
-      md5: 033dab60428d964caaef132a1b55850c
-      size: 703
+      md5: ad410a42278f1e70742c0affbc38bdfd
+      size: 628
     outs:
     - path: models/logistic_model.pkl
       hash: md5
@@ -97,12 +97,12 @@ stages:
       size: 1563
     - path: src/config.yaml
       hash: md5
-      md5: fd835255ed8d22fe98aaf4d9a4a65765
-      size: 619
+      md5: 1953f2b73e1a932d4a2a8fe6c40afd15
+      size: 600
     - path: src/stages/evaluate_model.py
       hash: md5
-      md5: 2fd1a9e5c37ba0703bdfaaacd0e38ab8
-      size: 1221
+      md5: 5ef37d59afc9f31dc12861809caeefee
+      size: 1103
     outs:
     - path: metrics.json
       hash: md5

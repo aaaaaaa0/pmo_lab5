@@ -1,4 +1,3 @@
-# src/config.yaml
 data:
   raw_data: "data/Titanic-Dataset.csv"
   clean_data: "data/titanic_clean.csv"

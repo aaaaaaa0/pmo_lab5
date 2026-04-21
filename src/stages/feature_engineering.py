@@ -1,6 +1,6 @@
-# src/stages/feature_engineering.py
 import pandas as pd
 import yaml
+import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
@@ -10,7 +10,7 @@ def main():
     
     data = pd.read_csv(config["data"]["clean_data"])
     
-    # --- Создание новых признаков (из вашего кода) ---
+    # создание новых признаков 
     data["Title"] = data["Name"].str.extract(r" ([A-Za-z]+)\.", expand=False)
     title_mapping = {
         "Mr": "Mr", "Miss": "Miss", "Mrs": "Mrs", "Master": "Master",
@@ -27,7 +27,6 @@ def main():
     data["IsAlone"] = (data["FamilySize"] == 1).astype(int)
     data["FareGroup"] = pd.qcut(data["Fare"], q=4, labels=["Low","Medium","High","VeryHigh"], duplicates="drop")
     
-    # Удаляем исходный Name
     data.drop(columns=["Name"], inplace=True, errors="ignore")
     
     # One‑hot encoding категориальных признаков
@@ -36,12 +35,11 @@ def main():
     bool_cols = data.select_dtypes(include="bool").columns
     data[bool_cols] = data[bool_cols].astype(int)
     
-    # Разделение на X, y
     target = config["features"]["target_col"]
     X = data.drop(columns=[target])
     y = data[target]
     
-    # Split (стратифицированный, как у вас)
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, 
         test_size=config["features"]["test_size"],
@@ -49,7 +47,7 @@ def main():
         stratify=y
     )
     
-    # Масштабирование числовых признаков
+    # масштабирование числовых признаков
     numeric_features = config["features"]["numeric_features"]
     scaler = StandardScaler()
     X_train_scaled = X_train.copy()
@@ -57,17 +55,16 @@ def main():
     X_train_scaled[numeric_features] = scaler.fit_transform(X_train[numeric_features])
     X_test_scaled[numeric_features] = scaler.transform(X_test[numeric_features])
     
-    # Сохраняем готовые выборки (например, как CSV)
+    # Сохранение готовых данных для обучения и тестирования
     X_train_scaled.to_csv("data/X_train_scaled.csv", index=False)
     X_test_scaled.to_csv("data/X_test_scaled.csv", index=False)
     y_train.to_csv("data/y_train.csv", index=False)
     y_test.to_csv("data/y_test.csv", index=False)
     
-    # Также сохраняем обученный scaler (чтобы потом использовать для новых данных)
-    import joblib
+    # обученный scaler 
     joblib.dump(scaler, "models/scaler.pkl")
     
-    print("Признаки сгенерированы, данные сохранены.")
+    print('признаки сгенерированы, данные сохранены')
 
 if __name__ == "__main__":
     main()
