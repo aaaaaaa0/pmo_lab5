@@ -3,45 +3,45 @@ stages:
   clean:
     cmd: python src/stages/clean_data.py
     deps:
-      - src/stages/clean_data.py
-      - src/config.yaml
-      - data/Titanic-Dataset.csv
+    - src/stages/clean_data.py
+    - src/config.yaml
+    - data/Titanic-Dataset.csv
     outs:
-      - data/titanic_clean.csv
+    - data/titanic_clean.csv
 
   feature_engineering:
     cmd: python src/stages/feature_engineering.py
     deps:
-      - src/stages/feature_engineering.py
-      - src/config.yaml
-      - data/titanic_clean.csv
+    - src/stages/feature_engineering.py
+    - src/config.yaml
+    - data/titanic_clean.csv
     outs:
-      - data/X_train_scaled.csv
-      - data/X_test_scaled.csv
-      - data/y_train.csv
-      - data/y_test.csv
-      - models/scaler.pkl
+    - data/X_train_scaled.csv
+    - data/X_test_scaled.csv
+    - data/y_train.csv
+    - data/y_test.csv
+    - models/scaler.pkl
 
   train:
     cmd: python src/stages/train_model.py
     deps:
-      - src/stages/train_model.py
-      - src/config.yaml
-      - data/X_train_scaled.csv
-      - data/y_train.csv
+    - src/stages/train_model.py
+    - src/config.yaml
+    - data/X_train_scaled.csv
+    - data/y_train.csv
     outs:
-      - models/logistic_model.pkl
+    - models/logistic_model.pkl
 
   evaluate:
     cmd: python src/stages/evaluate_model.py
     deps:
-      - src/stages/evaluate_model.py
-      - src/config.yaml
-      - models/logistic_model.pkl
-      - data/X_test_scaled.csv
-      - data/y_test.csv
+    - src/stages/evaluate_model.py
+    - src/config.yaml
+    - models/logistic_model.pkl
+    - data/X_test_scaled.csv
+    - data/y_test.csv
     metrics:
-      - metrics.json
+    - metrics.json
     plots:
-      - dvclive/plots/metrics:
-          x: step
+    - dvclive/plots/metrics:
+        x: step
