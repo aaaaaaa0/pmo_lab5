@@ -4,7 +4,6 @@ import yaml
 import json
 import joblib
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, log_loss
-from dvclive import Live
 
 def main():
     with open("src/config.yaml", "r") as f:
@@ -25,16 +24,12 @@ def main():
         "log_loss": log_loss(y_test, y_proba)
     }
     
-    # Сохраняем как JSON
-    with open(config["evaluate"]["metrics_file"], "w") as f:
+    # Сохраняем в JSON (путь из конфига)
+    metrics_file = config["evaluate"]["metrics_file"]
+    with open(metrics_file, "w") as f:
         json.dump(metrics, f, indent=4)
     
-    # Логируем через dvclive (для графиков) - исправлено
-    with Live() as live:
-        for name, val in metrics.items():
-            live.log(name, val)
-    
-    print("Метрики:")
+    print("Метрики модели:")
     for k, v in metrics.items():
         print(f"  {k}: {v:.4f}")
 

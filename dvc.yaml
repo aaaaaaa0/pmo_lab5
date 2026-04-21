@@ -42,6 +42,4 @@ stages:
     - data/y_test.csv
     metrics:
     - metrics.json
-    plots:
-    - dvclive/plots/metrics:
-        x: step
+    
