@@ -1,0 +1,24 @@
+# src/config.yaml
+data:
+  raw_data: "data/Titanic-Dataset.csv"
+  clean_data: "data/titanic_clean.csv"
+  final_data: "data/titanic_final.csv"
+
+features:
+  target_col: "Survived"
+  drop_cols: ["PassengerId", "Ticket", "Cabin"]
+  numeric_features: ["Age", "Fare", "FamilySize", "SibSp", "Parch", "Pclass"]
+  categorical_features: ["Embarked", "Title", "AgeGroup", "FareGroup"]
+  test_size: 0.2
+  random_state: 42
+
+train:
+  model_type: "LogisticRegression"
+  params:
+    solver: "liblinear"
+    class_weight: "balanced"
+    max_iter: 500
+    random_state: 42
+
+evaluate:
+  metrics_file: "metrics.json"
